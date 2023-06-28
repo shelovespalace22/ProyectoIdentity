@@ -1,0 +1,205 @@
+﻿@model ProyectoIdentity.Models.ViewModels.RegisterViewModel
+
+@{
+	ViewData["Title"] = "Registro de Usuarios";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+	<div class="card-body">
+		<h3 class="card-title text-center">Nuevo Usuario</h3>
+		<form asp-controller="Cuentas" asp-action="Registro" method="post">
+		<div class="text-danger" asp-validation-summary="All"></div>
+			
+			<div class="row mt-4">
+
+				<div class="col-sm-6">
+
+					<div class="mb-3">
+						<label asp-for="FirstName" class="col-md-4"></label>
+						<input asp-for="FirstName" class="form-control" placeholder="Ejm: Miguel" />
+						<span asp-validation-for="FirstName" class="text-danger"></span>
+					</div>
+
+					<div class="mb-3">
+						<label asp-for="SecondName" class="col-md-4"></label>
+						<input asp-for="SecondName" class="form-control" placeholder="Ejm: Angel" />
+						<span asp-validation-for="SecondName" class="text-danger"></span>
+					</div>
+
+					<div class="mb-3">
+						<label asp-for="FirstLastName" class="col-md-4"></label>
+						<input asp-for="FirstLastName" class="form-control" placeholder="Ejm: Moyano" />
+						<span asp-validation-for="FirstLastName" class="text-danger"></span>
+					</div>
+
+					<div class="mb-3">
+						<label asp-for="SecondLastName" class="col-md-4"></label>
+						<input asp-for="SecondLastName" class="form-control" placeholder="Ejm:  Palacio" />
+						<span asp-validation-for="SecondLastName" class="text-danger"></span>
+					</div>
+
+					<div class="mb-3">
+						<label asp-for="Address" class="col-md-4"></label>
+						<input asp-for="Address" class="form-control" placeholder="Ejm: Cra. 19 Este #32-17" />
+						<span asp-validation-for="Address" class="text-danger"></span>
+					</div>
+
+
+				</div>
+
+				<div class="col-sm-6">
+
+					<div class="mb-3">
+						<label asp-for="Sex" class="col-md-4"></label>
+						<input asp-for="Sex" class="form-control" placeholder="Ejm: Masculino" />
+						<span asp-validation-for="Sex" class="text-danger"></span>
+					</div>
+
+					<div class="mb-3">
+						<label asp-for="BirthDate" class="col-md-4"></label>
+						<input type="text" name="BirthDate" class="form-control" placeholder="Ejm: 2005-03-09" id="datepicker"/>
+						<span asp-validation-for="BirthDate" class="text-danger"></span>
+					</div>
+
+					<div class="mb-3">
+						<label asp-for="Email" class="col-md-4"></label>
+						<input asp-for="Email" class="form-control" placeholder="Ejm: miguel.moyano@soy.sena.edu.co" />
+						<span asp-validation-for="Email" class="text-danger"></span>
+					</div>
+
+					<div class="mb-3">
+						<label asp-for="Password" class="col-md-4"></label>
+						<input asp-for="Password" class="form-control" placeholder="Ejm: Migue123*" />
+						<span asp-validation-for="Password" class="text-danger"></span>
+					</div>
+
+					<div class="mb-3">
+						<label asp-for="ConfirmedPassword" class="col-md-4"></label>
+						<input asp-for="ConfirmedPassword" class="form-control" />
+						<span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+					</div>
+
+
+				</div>
+
+				<div class="row">
+					<div class="col-sm-10 offset-2">
+						<button type="submit" class="btn btn-success w-75 btn-lg">Registrarse</button>
+					</div>
+				</div>
+
+			</div>	
+
+		</form>
+	</div>
+</div>
+
+
+
+<@*h1>Registro Nuevo Usuario</h1>
+<form asp-controller="Cuentas" asp-action="Registro"  method="post" role="form">
+	<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+
+	<div class="form-group">
+		<label asp-for="FirstName" class="col-md-2"></label>
+		<div class="col-md-10">
+			<input asp-for="FirstName" class="form-control" placeholder="Ejm: Miguel" />
+			<span asp-validation-for="FirstName" class="text-danger"></span>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label asp-for="SecondName" class="col-md-2"></label>
+		<div class="col-md-10">
+			<input asp-for="SecondName" class="form-control" placeholder="Ejm: Ángel" />
+			<span asp-validation-for="SecondName" class="text-danger"></span>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label asp-for="FirstLastName" class="col-md-2"></label>
+		<div class="col-md-10">
+			<input asp-for="FirstLastName" class="form-control" placeholder="Ejm: Moyano" />
+			<span asp-validation-for="FirstLastName" class="text-danger"></span>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label asp-for="SecondLastName" class="col-md-2"></label>
+		<div class="col-md-10">
+			<input asp-for="SecondLastName" class="form-control" placeholder="Ejm: Palacio" />
+			<span asp-validation-for="SecondLastName" class="text-danger"></span>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label asp-for="Address" class="col-md-2"></label>
+		<div class="col-md-10">
+			<input asp-for="Address" class="form-control" placeholder="Ejm: Cra. 19 Este #32-17" />
+			<span asp-validation-for="Address" class="text-danger"></span>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label asp-for="Sex" class="col-md-2"></label>
+		<div class="col-md-10">
+			<input asp-for="Sex" class="form-control" placeholder="Ejm: Masculino"/>
+			<span asp-validation-for="Sex" class="text-danger"></span>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label asp-for="BirthDate" class="col-md-2"></label>
+		<div class="col-md-10">
+			<input asp-for="BirthDate" class="form-control" placeholder="Ejm: 09/03/2005" />
+			<span asp-validation-for="BirthDate" class="text-danger"></span>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label asp-for="Email" class="col-md-2"></label>
+		<div class="col-md-10">
+			<input asp-for="Email" class="form-control" placeholder="Ejm: miguel.moyano@soy.sena.edu.co" />
+			<span asp-validation-for="Email" class="text-danger"></span>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label asp-for="Password" class="col-md-2"></label>
+		<div class="col-md-10">
+			<input asp-for="Password" class="form-control" placeholder="Ejm: clave123456" />
+			<span asp-validation-for="Password" class="text-danger"></span>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label asp-for="ConfirmedPassword" class="col-md-2"></label>
+		<div class="col-md-10">
+			<input asp-for="ConfirmedPassword" class="form-control" />
+			<span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<div class="col-md-10">
+			<button type="submit" class="btn btn-success">Registrarse</button>
+		</div>
+	</div>
+
+</form>*@
+
+@section Scripts{
+	@{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
