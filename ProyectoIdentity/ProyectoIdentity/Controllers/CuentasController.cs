@@ -85,12 +85,18 @@ namespace ProyectoIdentity.Controllers
             returnurl = returnurl ?? Url.Content("~/");
 			if (ModelState.IsValid)
 			{
-                var resultado = await _signInManager.PasswordSignInAsync(accesoViewModel.Email, accesoViewModel.Password, accesoViewModel.RememberMe, lockoutOnFailure: false);
+                var resultado = await _signInManager.PasswordSignInAsync(accesoViewModel.Email, accesoViewModel.Password, accesoViewModel.RememberMe, lockoutOnFailure: true);
 
                 if (resultado.Succeeded)
                 {
                     return LocalRedirect(returnurl);
                 }
+
+                else if (resultado.IsLockedOut)
+                {
+                    return View("Bloqueado");
+                }
+
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Acceso inválido.");
@@ -108,6 +114,14 @@ namespace ProyectoIdentity.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        /* METODO DE OLVIDO PASSWORD */
+
+        [HttpGet]
+        public IActionResult OlvidoPassword()
+        {
+            return View();
         }
 
 		/* MANEJADOR DE ERRORES */
