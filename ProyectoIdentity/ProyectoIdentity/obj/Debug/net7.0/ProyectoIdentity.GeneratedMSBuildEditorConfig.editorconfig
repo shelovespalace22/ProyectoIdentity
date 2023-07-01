@@ -28,12 +28,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc1xDb25maXJtYWNpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/Miguel/Programación/Cursos/Udemy/Identity MVC/ProyectoIdentity/ProyectoIdentity/Views/Cuentas/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc1xFcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/Miguel/Programación/Cursos/Udemy/Identity MVC/ProyectoIdentity/ProyectoIdentity/Views/Cuentas/OlvidoPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc1xPbHZpZG9QYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/Miguel/Programación/Cursos/Udemy/Identity MVC/ProyectoIdentity/ProyectoIdentity/Views/Cuentas/Registro.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc1xSZWdpc3Ryby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Miguel/Programación/Cursos/Udemy/Identity MVC/ProyectoIdentity/ProyectoIdentity/Views/Cuentas/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc1xSZXNldFBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/Miguel/Programación/Cursos/Udemy/Identity MVC/ProyectoIdentity/ProyectoIdentity/Views/Home/Index.cshtml]

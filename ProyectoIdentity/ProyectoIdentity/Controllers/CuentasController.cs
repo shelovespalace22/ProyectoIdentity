@@ -165,6 +165,14 @@ namespace ProyectoIdentity.Controllers
             return View();
         }
 
+        /* METODO PARA MOSTRAR FORMULARIO DE REESTABLECIMIENTO DE CONTRASEÑA */
+
+        [HttpGet]
+        public IActionResult ResetPassword(string code = null)
+        {
+            return code == null ? View("Error") : View();
+        }
+
         /* MANEJADOR DE ERRORES */
 
         private void ValidarErrores(IdentityResult result)
