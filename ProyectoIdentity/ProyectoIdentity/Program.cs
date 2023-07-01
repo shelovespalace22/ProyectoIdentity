@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using ProyectoIdentity.Data;
+using ProyectoIdentity.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 //Agregar el servicio Identity a la aplicación
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 //Url de retorno 
 
@@ -31,6 +33,10 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1); //Tiempo de bloqueo de un minuto, si no ingresa bien las credenciales
     options.Lockout.MaxFailedAccessAttempts = 3; //Intentos máximos para fallar la contraseña 
 });
+
+//Agregacion de IEmailSender al proyecto
+
+builder.Services.AddTransient<IEmailSender, MailJetEmailSender>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

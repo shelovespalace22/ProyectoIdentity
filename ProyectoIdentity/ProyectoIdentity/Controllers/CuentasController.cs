@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoIdentity.Models;
 using ProyectoIdentity.Models.ViewModels;
@@ -11,13 +13,15 @@ namespace ProyectoIdentity.Controllers
 
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IEmailSender _emailSender;
 
-        public CuentasController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public CuentasController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailSender = emailSender;
 
-		}
+        }
 
         public IActionResult Index()
         {
@@ -27,8 +31,8 @@ namespace ProyectoIdentity.Controllers
         [HttpGet]
         public async Task<IActionResult> Registro(string returnurl = null)
         {
-			ViewData["ReturnUrl"] = returnurl;
-			RegisterViewModel registerViewModel = new RegisterViewModel();
+            ViewData["ReturnUrl"] = returnurl;
+            RegisterViewModel registerViewModel = new RegisterViewModel();
             return View(registerViewModel);
         }
 
@@ -36,9 +40,9 @@ namespace ProyectoIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registro(RegisterViewModel registerViewModel, string returnurl = null)
         {
-			ViewData["ReturnUrl"] = returnurl;
-			returnurl = returnurl ?? Url.Content("~/");
-			if (ModelState.IsValid)
+            ViewData["ReturnUrl"] = returnurl;
+            returnurl = returnurl ?? Url.Content("~/");
+            if (ModelState.IsValid)
             {
                 var newUser = new AppUsuario
                 {
@@ -60,10 +64,10 @@ namespace ProyectoIdentity.Controllers
 
                 if (resultado.Succeeded)
                 {
-					await _signInManager.SignInAsync(newUser, isPersistent: false);
+                    await _signInManager.SignInAsync(newUser, isPersistent: false);
 
-					return LocalRedirect(returnurl);
-				}
+                    return LocalRedirect(returnurl);
+                }
                 ValidarErrores(resultado);
             }
 
@@ -75,16 +79,16 @@ namespace ProyectoIdentity.Controllers
         {
             ViewData["ReturnUrl"] = returnurl;
             return View();
-		}
+        }
 
-		[HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Acceso(AccesoViewModel accesoViewModel, string returnurl = null)
-		{
-			ViewData["ReturnUrl"] = returnurl;
+        {
+            ViewData["ReturnUrl"] = returnurl;
             returnurl = returnurl ?? Url.Content("~/");
-			if (ModelState.IsValid)
-			{
+            if (ModelState.IsValid)
+            {
                 var resultado = await _signInManager.PasswordSignInAsync(accesoViewModel.Email, accesoViewModel.Password, accesoViewModel.RememberMe, lockoutOnFailure: true);
 
                 if (resultado.Succeeded)
@@ -100,11 +104,11 @@ namespace ProyectoIdentity.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Acceso inválido.");
-					return View(accesoViewModel);
-				}
-			}
-			return View(accesoViewModel);
-		}
+                    return View(accesoViewModel);
+                }
+            }
+            return View(accesoViewModel);
+        }
 
         /* METODO DE LOGOUT */
 
@@ -124,9 +128,46 @@ namespace ProyectoIdentity.Controllers
             return View();
         }
 
-		/* MANEJADOR DE ERRORES */
+        /* METODO PARA RECUPERACIÓN DE CONTRASEÑA */
 
-		private void ValidarErrores(IdentityResult result)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OlvidoPassword(OlvidoPasswordViewModel olvidoPasswordView)
+        {
+            if (ModelState.IsValid)
+            {
+                var usuario = await _userManager.FindByEmailAsync(olvidoPasswordView.Email);
+
+                if (usuario == null)
+                {
+                    return RedirectToAction("Confirmacion");
+                }
+
+                var codigo = await _userManager.GeneratePasswordResetTokenAsync(usuario);
+
+                var urlRetorno = Url.Action("ResetPassword", "Cuentas", new { userId = usuario.Id, code = codigo }, protocol: HttpContext.Request.Scheme);
+
+                await _emailSender.SendEmailAsync(olvidoPasswordView.Email, "Recuperación de su Password - Proyecto Identity", 
+                    " Por favor recupere su password dando click aquí: <a href=\"" + urlRetorno + "\">enlace</a>");
+
+                return RedirectToAction("Confirmacion");
+            }
+
+            return View(olvidoPasswordView);
+        }
+
+        /* METODO PARA MOSTRAR VISTA DE CONFIRMACION DE PASSWORD */
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Confirmacion()
+        {
+            return View();
+        }
+
+        /* MANEJADOR DE ERRORES */
+
+        private void ValidarErrores(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {

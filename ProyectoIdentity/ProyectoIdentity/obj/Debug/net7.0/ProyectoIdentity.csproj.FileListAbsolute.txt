@@ -79,3 +79,8 @@ F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdent
 F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdentity\obj\Debug\net7.0\ProyectoIdentity.pdb
 F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdentity\obj\Debug\net7.0\ProyectoIdentity.genruntimeconfig.cache
 F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdentity\obj\Debug\net7.0\ref\ProyectoIdentity.dll
+F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdentity\bin\Debug\net7.0\Mailjet.Client.dll
+F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdentity\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.UI.dll
+F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdentity\bin\Debug\net7.0\Microsoft.Extensions.FileProviders.Embedded.dll
+F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdentity\bin\Debug\net7.0\Newtonsoft.Json.dll
+F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdentity\obj\Debug\net7.0\ProyectoIdentity.MvcApplicationPartsAssemblyInfo.cs
