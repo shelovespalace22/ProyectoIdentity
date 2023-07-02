@@ -224,9 +224,23 @@ namespace ProyectoIdentity.Controllers
 
 		[HttpGet]
         [AllowAnonymous]
-        public IActionResult ConfirmarEmail()
+        public async Task<IActionResult> ConfirmarEmail(string userId, string code)
         {
-            return View();
+            if(userId == null || code == null)
+            {
+				return View("Error");
+			}
+
+            var usuario = await _userManager.FindByIdAsync(userId);
+
+            if(usuario == null)
+            {
+                return View("Error");
+            }
+
+            var resultado = await _userManager.ConfirmEmailAsync(usuario, code);
+
+            return View(resultado.Succeeded ? "ConfirmarEmail" : "Error");
         }
 
         /* MANEJADOR DE ERRORES */
