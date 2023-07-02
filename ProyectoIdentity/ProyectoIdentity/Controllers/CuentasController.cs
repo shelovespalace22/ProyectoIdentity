@@ -29,6 +29,7 @@ namespace ProyectoIdentity.Controllers
         }
 
         [HttpGet]
+        
         public async Task<IActionResult> Registro(string returnurl = null)
         {
             ViewData["ReturnUrl"] = returnurl;
@@ -64,7 +65,13 @@ namespace ProyectoIdentity.Controllers
 
                 if (resultado.Succeeded)
                 {
-                    await _signInManager.SignInAsync(newUser, isPersistent: false);
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+					var urlRetorno = Url.Action("ConfirmarEmail", "Cuentas", new { userId = newUser.Id, code = code }, protocol: HttpContext.Request.Scheme);
+
+					await _emailSender.SendEmailAsync(registerViewModel.Email, "Confirmación de Cuenta - Proyecto Identity",
+					" Por favor confirme su cuenta dando click aquí: <a href=\"" + urlRetorno + "\">enlace</a>");
+
+					await _signInManager.SignInAsync(newUser, isPersistent: false);
 
                     return LocalRedirect(returnurl);
                 }
@@ -168,9 +175,58 @@ namespace ProyectoIdentity.Controllers
         /* METODO PARA MOSTRAR FORMULARIO DE REESTABLECIMIENTO DE CONTRASEÑA */
 
         [HttpGet]
-        public IActionResult ResetPassword(string code = null)
+		[AllowAnonymous]
+		public IActionResult ResetPassword(string code = null)
         {
             return code == null ? View("Error") : View();
+        }
+
+        /* METODO PARA REESTABLECIMIENTO DE CONTRASEÑA */
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task <IActionResult> ResetPassword(RecuperaPasswordViewModel recuperaPasswordView)
+		{
+			if (ModelState.IsValid)
+			{
+				var usuario = await _userManager.FindByEmailAsync(recuperaPasswordView.Email);
+
+				if (usuario == null)
+				{
+					return RedirectToAction("ConfirmacionRecuperaPassword");
+				}
+
+                var resultado = await _userManager.ResetPasswordAsync(usuario, recuperaPasswordView.Code, recuperaPasswordView.Password);
+
+                if (resultado.Succeeded)
+                {
+					return RedirectToAction("ConfirmacionRecuperaPassword");
+				}
+
+                ValidarErrores(resultado);
+				
+			}
+
+			return View(recuperaPasswordView);
+		}
+
+		/* METODO PARA MOSTRAR CONFIRMACION DE REESTABLECIMIENTO DE CONTRASEÑA */
+
+		[HttpGet]
+		[AllowAnonymous]
+		public IActionResult ConfirmacionRecuperaPassword()
+		{
+            return View();
+		}
+
+
+		/* METODO PARA CONFIRMACIÓN DE EMAIL */
+
+		[HttpGet]
+        [AllowAnonymous]
+        public IActionResult ConfirmarEmail()
+        {
+            return View();
         }
 
         /* MANEJADOR DE ERRORES */

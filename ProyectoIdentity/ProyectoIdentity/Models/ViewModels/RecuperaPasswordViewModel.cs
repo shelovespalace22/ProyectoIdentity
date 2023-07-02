@@ -21,7 +21,6 @@ namespace ProyectoIdentity.Models.ViewModels
 		[DisplayName("Confirmar Clave")]
 		public string ConfirmedPassword { get; set; }
 
-		[DisplayName("Recordar Datos")]
 		public string Code { get; set; }
 	}
 }
