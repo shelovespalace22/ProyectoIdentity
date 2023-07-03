@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -248,7 +249,7 @@ namespace ProyectoIdentity.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AccesoExterno(string proveedor, string returnurl = null)
+        public IActionResult AccesoExterno(string proveedor, string returnurl = null)
         {
             var urlRedireccion = Url.Action("AccesoExternoCallback", "Cuentas", new { ReturnUrl = returnurl });
 
@@ -257,9 +258,55 @@ namespace ProyectoIdentity.Controllers
             return Challenge(propiedades, proveedor);
 		}
 
-		/* MANEJADOR DE ERRORES */
+		/* METODO CALLBACK */
 
-		private void ValidarErrores(IdentityResult result)
+		[HttpGet]
+		[AllowAnonymous]
+		public async Task<IActionResult> AccesoExternoCallback(string returnurl = null, string error = null)
+		{
+			returnurl = returnurl ?? Url.Content("~/");
+
+            if(error != null)
+            {
+                ModelState.AddModelError(string.Empty, $"Error en el acceso externo {error}");
+                return View(nameof(Acceso)); 
+            }
+
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+
+            if(info == null)
+            {
+                return RedirectToAction(nameof(Acceso));
+            }
+
+            //Acceder con el usuario en el proveedor externo
+
+            var resultado = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
+
+            if (resultado.Succeeded)
+            {
+                //Actualizar tokens de acceso
+
+                await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
+                return LocalRedirect(returnurl);
+            }
+            else
+            {
+                //Si el usuario no tiene cuenta, crear una
+
+                ViewData["ReturnUrl"] = returnurl;
+                ViewData["NombreMostrarProveedor"] = info.ProviderDisplayName;
+
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                var nombre = info.Principal.FindFirstValue(ClaimTypes.Name);
+
+                return View("ConfirmacionAccesoExterno", new ConfirmacionAccesoExternoViewModel { Email = email, Name = nombre});
+            }
+        }
+
+        /* MANEJADOR DE ERRORES */
+
+        private void ValidarErrores(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
