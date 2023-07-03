@@ -88,6 +88,22 @@
           "Microsoft.AspNetCore.App"
         ]
       },
+      "Microsoft.AspNetCore.Authentication.Google/7.0.8": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/7.0.8": {
         "type": "package",
         "compile": {
@@ -2482,6 +2498,21 @@
         "lib/net7.0/Microsoft.AspNetCore.Authentication.Facebook.xml",
         "microsoft.aspnetcore.authentication.facebook.7.0.8.nupkg.sha512",
         "microsoft.aspnetcore.authentication.facebook.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Google/7.0.8": {
+      "sha512": "4yiXtRVf5HwrdOcZ04SA2ON3bMweYzhIvSDGnIdP0jsYUW83yvMuTXXNoVP42oqc5fNUEz7q2RtWc0woZHCS1w==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.google/7.0.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net7.0/Microsoft.AspNetCore.Authentication.Google.dll",
+        "lib/net7.0/Microsoft.AspNetCore.Authentication.Google.xml",
+        "microsoft.aspnetcore.authentication.google.7.0.8.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.google.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/7.0.8": {
@@ -7626,6 +7657,7 @@
     "net7.0": [
       "Mailjet.Api >= 1.2.3",
       "Microsoft.AspNetCore.Authentication.Facebook >= 7.0.8",
+      "Microsoft.AspNetCore.Authentication.Google >= 7.0.8",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.8",
       "Microsoft.AspNetCore.Identity.UI >= 7.0.8",
       "Microsoft.EntityFrameworkCore >= 7.0.8",
@@ -7683,6 +7715,10 @@
             "version": "[1.2.3, )"
           },
           "Microsoft.AspNetCore.Authentication.Facebook": {
+            "target": "Package",
+            "version": "[7.0.8, )"
+          },
+          "Microsoft.AspNetCore.Authentication.Google": {
             "target": "Package",
             "version": "[7.0.8, )"
           },

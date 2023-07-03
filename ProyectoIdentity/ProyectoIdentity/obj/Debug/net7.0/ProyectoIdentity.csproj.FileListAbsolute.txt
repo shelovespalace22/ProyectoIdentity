@@ -85,3 +85,4 @@ F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdent
 F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdentity\bin\Debug\net7.0\Newtonsoft.Json.dll
 F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdentity\obj\Debug\net7.0\ProyectoIdentity.MvcApplicationPartsAssemblyInfo.cs
 F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdentity\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.Facebook.dll
+F:\Miguel\Programación\Cursos\Udemy\Identity MVC\ProyectoIdentity\ProyectoIdentity\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.Google.dll

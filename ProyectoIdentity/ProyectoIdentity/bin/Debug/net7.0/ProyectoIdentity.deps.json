@@ -10,6 +10,7 @@
         "dependencies": {
           "Mailjet.Api": "1.2.3",
           "Microsoft.AspNetCore.Authentication.Facebook": "7.0.8",
+          "Microsoft.AspNetCore.Authentication.Google": "7.0.8",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "7.0.8",
           "Microsoft.AspNetCore.Identity.UI": "7.0.8",
           "Microsoft.EntityFrameworkCore": "7.0.8",
@@ -77,6 +78,14 @@
       "Microsoft.AspNetCore.Authentication.Facebook/7.0.8": {
         "runtime": {
           "lib/net7.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "assemblyVersion": "7.0.8.0",
+            "fileVersion": "7.0.823.31807"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Google/7.0.8": {
+        "runtime": {
+          "lib/net7.0/Microsoft.AspNetCore.Authentication.Google.dll": {
             "assemblyVersion": "7.0.8.0",
             "fileVersion": "7.0.823.31807"
           }
@@ -1341,6 +1350,13 @@
       "sha512": "sha512-l+31C79/B7/r1UyGiI7J7qyO25Un0YXlkMXzCD3G3+7wy6O73qDOuzreo9sHbzdYlNkWbyKDrTmTkGcYj9hIPw==",
       "path": "microsoft.aspnetcore.authentication.facebook/7.0.8",
       "hashPath": "microsoft.aspnetcore.authentication.facebook.7.0.8.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.Google/7.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4yiXtRVf5HwrdOcZ04SA2ON3bMweYzhIvSDGnIdP0jsYUW83yvMuTXXNoVP42oqc5fNUEz7q2RtWc0woZHCS1w==",
+      "path": "microsoft.aspnetcore.authentication.google/7.0.8",
+      "hashPath": "microsoft.aspnetcore.authentication.google.7.0.8.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Cryptography.Internal/7.0.8": {
       "type": "package",

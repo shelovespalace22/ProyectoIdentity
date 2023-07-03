@@ -42,6 +42,14 @@ builder.Services.AddAuthentication().AddFacebook(options =>
     options.AppSecret = "0b50d6d3d3fd3fe4d54a40878b6a23ae";
 });
 
+//Autenticación de Google
+
+builder.Services.AddAuthentication().AddGoogle(options =>
+{
+	options.ClientId = "210003377699-c11nstivf2u8013uijcgqlj8bqmdseg2.apps.googleusercontent.com";
+	options.ClientSecret = "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";
+});
+
 //Agregacion de IEmailSender al proyecto
 
 builder.Services.AddTransient<IEmailSender, MailJetEmailSender>();
