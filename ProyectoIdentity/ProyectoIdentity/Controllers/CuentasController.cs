@@ -243,9 +243,23 @@ namespace ProyectoIdentity.Controllers
             return View(resultado.Succeeded ? "ConfirmarEmail" : "Error");
         }
 
-        /* MANEJADOR DE ERRORES */
+        /* METODO PARA ACCESO CON APPS EXTERNAS */
 
-        private void ValidarErrores(IdentityResult result)
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AccesoExterno(string proveedor, string returnurl = null)
+        {
+            var urlRedireccion = Url.Action("AccesoExternoCallback", "Cuentas", new { ReturnUrl = returnurl });
+
+            var propiedades = _signInManager.ConfigureExternalAuthenticationProperties(proveedor, urlRedireccion);
+
+            return Challenge(propiedades, proveedor);
+		}
+
+		/* MANEJADOR DE ERRORES */
+
+		private void ValidarErrores(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
