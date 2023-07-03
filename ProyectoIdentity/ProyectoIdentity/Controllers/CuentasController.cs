@@ -304,6 +304,52 @@ namespace ProyectoIdentity.Controllers
             }
         }
 
+        /* METODO CONFIRMACION DE ACCESO EXTERNO */
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmacionAccesoExterno(ConfirmacionAccesoExternoViewModel caeVm, string returnurl = null)
+        {
+            returnurl = returnurl ?? Url.Content("~/");
+
+            if (ModelState.IsValid)
+            {
+                //Obtener la información del usuario del proveedor externo
+
+                var info = await _signInManager.GetExternalLoginInfoAsync();
+
+                if (info == null)
+                {
+                    return View("Error");
+                }
+
+                var usuario = new AppUsuario { UserName = caeVm.Email, Email = caeVm.Email, FirstName = caeVm.Name };
+
+                var resultado = await _userManager.CreateAsync(usuario);
+
+                if (resultado.Succeeded)
+                {
+                    resultado = await _userManager.AddLoginAsync(usuario, info);
+
+                    if (resultado.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(usuario, isPersistent: false);
+                        await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
+
+                        return LocalRedirect(returnurl);
+                    }
+                }
+
+                ValidarErrores(resultado);
+
+            }
+
+            ViewData["ReturnUrl"] = returnurl;
+
+            return View(caeVm);
+        }
+
         /* MANEJADOR DE ERRORES */
 
         private void ValidarErrores(IdentityResult result)

@@ -1,0 +1,43 @@
+﻿@model ProyectoIdentity.Models.ViewModels.ConfirmacionAccesoExternoViewModel
+
+<h2 class="text-info">Registro</h2>
+
+<h3>Asociar su cuenta de: @ViewData["NombreMostrarProveedor"].</h3>
+
+<form asp-controller="Cuentas" asp-action="ConfirmacionAccesoExterno" method="post" asp-route-returnurl="@ViewData["ReturnUrl"]">
+	<hr />
+	<div class="text-danger" asp-validation-summary="All"></div>
+	<p>
+		Usted ha ingresado correctamente con <strong>@ViewData["NombreMostrarProveedor"]</strong>.
+		Ingrese un nombre de usuario para este sitio a continuación y haga click en el botón Registrarse para finalizar el inicio de sesión.
+	</p>
+
+	<div class="form-group">
+		<label asp-for="Email" class="col-md-4"></label>
+		<div class="col-md-10">
+			<input asp-for="Email" class="form-control"  />
+			<span asp-validation-for="Email" class="text-danger"></span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Name" class="col-md-4"></label>
+		<div class="col-md-10">
+			<input asp-for="Name" class="form-control"  />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-2 mt-3">
+			<button type="submit" class="btn btn-primary form-control">Registrarse</button>
+		</div>
+	</div>
+
+</form>
+
+@section Scripts{
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
