@@ -72,6 +72,22 @@
           "lib/netstandard1.1/Mailjet.Client.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Authentication.Facebook/7.0.8": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/7.0.8": {
         "type": "package",
         "compile": {
@@ -2451,6 +2467,21 @@
         "lib/netstandard1.1/Mailjet.Client.dll",
         "mailjet.api.1.2.3.nupkg.sha512",
         "mailjet.api.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Facebook/7.0.8": {
+      "sha512": "l+31C79/B7/r1UyGiI7J7qyO25Un0YXlkMXzCD3G3+7wy6O73qDOuzreo9sHbzdYlNkWbyKDrTmTkGcYj9hIPw==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.facebook/7.0.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net7.0/Microsoft.AspNetCore.Authentication.Facebook.dll",
+        "lib/net7.0/Microsoft.AspNetCore.Authentication.Facebook.xml",
+        "microsoft.aspnetcore.authentication.facebook.7.0.8.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.facebook.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/7.0.8": {
@@ -7594,6 +7625,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "Mailjet.Api >= 1.2.3",
+      "Microsoft.AspNetCore.Authentication.Facebook >= 7.0.8",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.8",
       "Microsoft.AspNetCore.Identity.UI >= 7.0.8",
       "Microsoft.EntityFrameworkCore >= 7.0.8",
@@ -7649,6 +7681,10 @@
           "Mailjet.Api": {
             "target": "Package",
             "version": "[1.2.3, )"
+          },
+          "Microsoft.AspNetCore.Authentication.Facebook": {
+            "target": "Package",
+            "version": "[7.0.8, )"
           },
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",

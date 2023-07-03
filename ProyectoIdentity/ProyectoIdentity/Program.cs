@@ -34,6 +34,14 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.MaxFailedAccessAttempts = 3; //Intentos máximos para fallar la contraseña 
 });
 
+//Autenticación de Facebook
+
+builder.Services.AddAuthentication().AddFacebook(options =>
+{
+    options.AppId = "304348228601632";
+    options.AppSecret = "0b50d6d3d3fd3fe4d54a40878b6a23ae";
+});
+
 //Agregacion de IEmailSender al proyecto
 
 builder.Services.AddTransient<IEmailSender, MailJetEmailSender>();
