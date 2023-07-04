@@ -36,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc1xDb25maXJtYWNpb25BY2Nlc29FeHRlcm5vLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/Miguel/Programación/Cursos/Udemy/Identity MVC/ProyectoIdentity/ProyectoIdentity/Views/Cuentas/ConfirmacionAutenticador.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc1xDb25maXJtYWNpb25BdXRlbnRpY2Fkb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/Miguel/Programación/Cursos/Udemy/Identity MVC/ProyectoIdentity/ProyectoIdentity/Views/Cuentas/ConfirmacionRecuperaPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc1xDb25maXJtYWNpb25SZWN1cGVyYVBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -58,6 +62,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [F:/Miguel/Programación/Cursos/Udemy/Identity MVC/ProyectoIdentity/ProyectoIdentity/Views/Cuentas/ResetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc1xSZXNldFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Miguel/Programación/Cursos/Udemy/Identity MVC/ProyectoIdentity/ProyectoIdentity/Views/Cuentas/VerificarCodigoAutenticador.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc1xWZXJpZmljYXJDb2RpZ29BdXRlbnRpY2Fkb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/Miguel/Programación/Cursos/Udemy/Identity MVC/ProyectoIdentity/ProyectoIdentity/Views/Home/Index.cshtml]

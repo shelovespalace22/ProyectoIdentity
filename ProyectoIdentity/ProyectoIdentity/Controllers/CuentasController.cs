@@ -109,6 +109,13 @@ namespace ProyectoIdentity.Controllers
                     return View("Bloqueado");
                 }
 
+                //Para autenticación de dos factores
+
+                if (resultado.RequiresTwoFactor)
+                {
+                    return RedirectToAction(nameof(VerificarCodigoAutenticador), new { returnurl, accesoViewModel.RememberMe });
+                }
+
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Acceso inválido.");
@@ -290,6 +297,14 @@ namespace ProyectoIdentity.Controllers
                 await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
                 return LocalRedirect(returnurl);
             }
+
+            //Para autenticación de dos factores
+
+            if (resultado.RequiresTwoFactor)
+            {
+                return RedirectToAction("VerificarCodigoAutenticador", new { returnurl = returnurl});
+            }
+
             else
             {
                 //Si el usuario no tiene cuenta, crear una
@@ -366,10 +381,87 @@ namespace ProyectoIdentity.Controllers
             return View(adfModel);
 
 		}
+        
+        /* METODO AUTENTICADOR DE DOS FACTORES */
 
-        /* MANEJADOR DE ERRORES */
+        [HttpPost]
+        public async Task<IActionResult> ActivarAutenticador(Autenticacion2FViewModel autenticacion2FView)
+        {
+            var usuario = await _userManager.GetUserAsync(User);
 
-        private void ValidarErrores(IdentityResult result)
+            var succeeded = await _userManager.VerifyTwoFactorTokenAsync(usuario, _userManager.Options.Tokens.AuthenticatorTokenProvider, autenticacion2FView.Code);
+
+            if (succeeded)
+            {
+                await _userManager.SetTwoFactorEnabledAsync(usuario, true);
+            }
+            else
+            {
+                ModelState.AddModelError("Error", $"Su autenticación de dos factores no ha sido válidada");
+                return View(autenticacion2FView);
+            }
+
+            return RedirectToAction(nameof(ConfirmacionAutenticador));
+		}
+
+        /* METODO CONFIRMACION AUTENTICACION DOS FACTORES */
+
+        [HttpGet]
+        public IActionResult ConfirmacionAutenticador()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> VerificarCodigoAutenticador(bool recordarDatos, string returnurl = null)
+        {
+
+            var usuario = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+
+            if(usuario == null)
+            {
+                return View("Error");
+            }
+
+            ViewData["ReturnUrl"] = returnurl;
+
+            return View(new VerificarAutenticadorViewModel { ReturnUrl = returnurl, RecordarDatos = recordarDatos }); 
+        }
+
+		[HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+		public async Task<IActionResult> VerificarCodigoAutenticador(VerificarAutenticadorViewModel viewModel)
+		{
+            viewModel.ReturnUrl = viewModel.ReturnUrl ?? Url.Content("~/");
+
+            if (ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            var resultado = await _signInManager.TwoFactorAuthenticatorSignInAsync(viewModel.Code, viewModel.RecordarDatos, rememberClient: true);
+
+            if (resultado.IsLockedOut)
+            {
+                return View("Bloqueado");
+            }
+
+            if (resultado.Succeeded)
+            {
+                return LocalRedirect(viewModel.ReturnUrl);
+            }
+
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Código invalido.");
+                return View(viewModel);
+            }
+		}
+
+		/* MANEJADOR DE ERRORES */
+
+		private void ValidarErrores(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {

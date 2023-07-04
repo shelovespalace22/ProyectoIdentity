@@ -1,0 +1,31 @@
+﻿@model ProyectoIdentity.Models.ViewModels.VerificarAutenticadorViewModel
+
+<h2>Verificar código del autenticador</h2>
+
+<form asp-controller="Cuentas" asp-action="VerificarCodigoAutenticador" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+	<div class="text-danger" asp-validation-summary="All"></div>
+	<input type="hidden" asp-for="RecordarDatos" />
+	<hr />
+	<div class="row">
+		<div class="col-sm-7">
+			<div class="col-md-12">
+				<label asp-for="Code"></label>
+				<input type="text" asp-for="Code" class="form-control" placeholder="Código*" />
+				<span asp-validation-for="Code" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="col-sm-5">
+			<div class="col-sm-5">
+				<div class="col-md-12 pt-4">
+					<button type="submit" class="btn btn-success mt-3 w-100"><i class="bi bi-arrow-right-square-fill"> Enviar</i></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+@section Scripts{
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
