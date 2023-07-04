@@ -1,0 +1,31 @@
+﻿@model ProyectoIdentity.Models.ViewModels.Autenticacion2FViewModel
+
+<p>¡Por favor, ingrese el código de abajo en su app autenticadora!</p>
+<p>@Model.Token</p>
+
+<form method="post">
+	<input type="hidden" asp-for="Token" />
+	<hr />
+	<div class="row">
+		<div class="col-sm-7">
+			<div class="col-md-12">
+				<label asp-for="Code"></label>
+				<input type="text" asp-for="Code" class="form-control" placeholder="Código*" />
+				<span asp-validation-for="Code" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="col-sm-5">
+			<div class="col-sm-5">
+				 <div class="col-md-12 pt-4">
+					<button type="submit" class="btn btn-primary mt-3"><i class="bi bi-arrow-right-square-fill"> Enviar</i></button>
+				 </div>
+			</div>
+		</div>
+	</div>
+</form>
+
+@section Scripts{
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
