@@ -350,6 +350,23 @@ namespace ProyectoIdentity.Controllers
             return View(caeVm);
         }
 
+        /* METODO AUTENTICACIÓN DE DOS FACTORES */
+
+        [HttpGet]
+        public async Task<IActionResult> ActivarAutenticador()
+        {
+            var usuario = await _userManager.GetUserAsync(User);
+
+            await _userManager.ResetAuthenticatorKeyAsync(usuario);
+
+            var token = await _userManager.GetAuthenticatorKeyAsync(usuario);
+
+            var adfModel = new Autenticacion2FViewModel() { Token = token };
+
+            return View(adfModel);
+
+		}
+
         /* MANEJADOR DE ERRORES */
 
         private void ValidarErrores(IdentityResult result)
