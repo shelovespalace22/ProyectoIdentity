@@ -1,7 +1,10 @@
 ﻿@model ProyectoIdentity.Models.ViewModels.Autenticacion2FViewModel
 
-<p>¡Por favor, ingrese el código de abajo en su app autenticadora!</p>
-<p>@Model.Token</p>
+<b><p>¡Por favor, ingrese el siguiente código en su app autenticadora!:</p></b><p>@Model.Token</p>
+<p>O tambien puede escanear el siguiente código QR:</p>
+<div id="codigoQR">
+
+</div>
 
 <form method="post">
 	<input type="hidden" asp-for="Token" />
@@ -25,7 +28,12 @@
 </form>
 
 @section Scripts{
-	@{
-		await Html.RenderPartialAsync("_ValidationScriptsPartial");
-	}
+
+	@{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+	<script src="~/js/qrcode.js"></script>
+
+	<script type="text/javascript">
+		new QRCode(document.getElementById("codigoQR"), "@Model.UrlCódigoQR");
+	</script>
 }

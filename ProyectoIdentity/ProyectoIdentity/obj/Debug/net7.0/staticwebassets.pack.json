@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\images\\calendario.png"
     },
     {
+      "Id": "F:\\Miguel\\Programación\\Cursos\\Udemy\\Identity MVC\\ProyectoIdentity\\ProyectoIdentity\\wwwroot\\js\\qrcode.js",
+      "PackagePath": "staticwebassets\\js\\qrcode.js"
+    },
+    {
       "Id": "F:\\Miguel\\Programación\\Cursos\\Udemy\\Identity MVC\\ProyectoIdentity\\ProyectoIdentity\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

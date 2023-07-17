@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -15,12 +16,14 @@ namespace ProyectoIdentity.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        public readonly UrlEncoder _urlEncoder;
 
-        public CuentasController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IEmailSender emailSender)
+        public CuentasController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IEmailSender emailSender, UrlEncoder urlEncoder)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _urlEncoder = urlEncoder;
 
         }
 
@@ -370,18 +373,39 @@ namespace ProyectoIdentity.Controllers
         [HttpGet]
         public async Task<IActionResult> ActivarAutenticador()
         {
+            string formatoUrlAutenticador = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
+
             var usuario = await _userManager.GetUserAsync(User);
 
             await _userManager.ResetAuthenticatorKeyAsync(usuario);
 
             var token = await _userManager.GetAuthenticatorKeyAsync(usuario);
 
-            var adfModel = new Autenticacion2FViewModel() { Token = token };
+            //Habilitar código QR
+
+            string urlAutenticador = string.Format(formatoUrlAutenticador, _urlEncoder.Encode("ProyectoIdentity"), _urlEncoder.Encode(usuario.Email), token);
+
+            var adfModel = new Autenticacion2FViewModel() { Token = token, UrlCódigoQR = urlAutenticador };
 
             return View(adfModel);
 
 		}
-        
+
+        /* METODO ELIMINACIÓN DE AUTENTICACION 2F */
+
+        [HttpGet]
+        public async Task<IActionResult> EliminarAutenticador()
+        {
+            var usuario = await _userManager.GetUserAsync(User);
+
+            await _userManager.ResetAuthenticatorKeyAsync(usuario);
+
+            await _userManager.SetTwoFactorEnabledAsync(usuario, false);
+
+            return RedirectToAction(nameof(Index), "Home");
+
+        }
+
         /* METODO AUTENTICADOR DE DOS FACTORES */
 
         [HttpPost]
@@ -412,6 +436,8 @@ namespace ProyectoIdentity.Controllers
             return View();
         }
 
+        /* METODO VERIFICACION DE CODIGO ACCESO */
+
         [HttpGet]
         public async Task<IActionResult> VerificarCodigoAutenticador(bool recordarDatos, string returnurl = null)
         {
@@ -428,6 +454,8 @@ namespace ProyectoIdentity.Controllers
             return View(new VerificarAutenticadorViewModel { ReturnUrl = returnurl, RecordarDatos = recordarDatos }); 
         }
 
+        /* METODO VERIFICACION DE CODIGO */
+        
 		[HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

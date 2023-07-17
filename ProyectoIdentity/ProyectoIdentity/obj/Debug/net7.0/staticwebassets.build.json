@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OM/c2roKI0Hcjo+donbdxbYDpB28Gzu8rio7HE5vsMg=",
+  "Hash": "H2dAs37qE4i0yRMPlCXSsD2U36J0u7MeFrKJAQRYdLM=",
   "Source": "ProyectoIdentity",
   "BasePath": "_content/ProyectoIdentity",
   "Mode": "Default",
@@ -1120,6 +1120,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\calendario.png"
+    },
+    {
+      "Identity": "F:\\Miguel\\Programación\\Cursos\\Udemy\\Identity MVC\\ProyectoIdentity\\ProyectoIdentity\\wwwroot\\js\\qrcode.js",
+      "SourceId": "ProyectoIdentity",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\Miguel\\Programación\\Cursos\\Udemy\\Identity MVC\\ProyectoIdentity\\ProyectoIdentity\\wwwroot\\",
+      "BasePath": "_content/ProyectoIdentity",
+      "RelativePath": "js/qrcode.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\qrcode.js"
     },
     {
       "Identity": "F:\\Miguel\\Programación\\Cursos\\Udemy\\Identity MVC\\ProyectoIdentity\\ProyectoIdentity\\wwwroot\\js\\site.js",

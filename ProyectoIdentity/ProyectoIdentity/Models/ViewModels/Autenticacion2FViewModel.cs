@@ -14,5 +14,9 @@ namespace ProyectoIdentity.Models.ViewModels
         //Para registro 
 
         public string Token { get; set; }
+
+        //Para código QR
+
+        public string UrlCódigoQR { get; set; }
     }
 }
