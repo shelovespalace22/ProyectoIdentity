@@ -9,39 +9,65 @@ using ProyectoIdentity.Models.ViewModels;
 
 namespace ProyectoIdentity.Controllers
 {
+    [Authorize]
     public class CuentasController : Controller
     {
         //Inyecciones de dependencia
 
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _rolManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IEmailSender _emailSender;
         public readonly UrlEncoder _urlEncoder;
 
-        public CuentasController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IEmailSender emailSender, UrlEncoder urlEncoder)
+        public CuentasController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IEmailSender emailSender, UrlEncoder urlEncoder, RoleManager<IdentityRole> rolManager)
         {
             _userManager = userManager;
+            _rolManager = rolManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _urlEncoder = urlEncoder;
 
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        
+        [AllowAnonymous]
         public async Task<IActionResult> Registro(string returnurl = null)
         {
+            //Creación de Roles 
+
+            //Validar si el rol ya existe.
+
+            if (!await _rolManager.RoleExistsAsync("Administrador"))
+            {
+                //Crear el rol Administrador
+
+                await _rolManager.CreateAsync(new IdentityRole("Administrador"));
+            }
+
+            //Validar si el rol ya existe
+
+            if (!await _rolManager.RoleExistsAsync("Registrado"))
+            {
+                //Crear el rol Registrado
+
+                await _rolManager.CreateAsync(new IdentityRole("Registrado"));
+            }
+
             ViewData["ReturnUrl"] = returnurl;
             RegisterViewModel registerViewModel = new RegisterViewModel();
             return View(registerViewModel);
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registro(RegisterViewModel registerViewModel, string returnurl = null)
         {
@@ -86,6 +112,7 @@ namespace ProyectoIdentity.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Acceso(string returnurl = null)
         {
             ViewData["ReturnUrl"] = returnurl;
@@ -93,6 +120,7 @@ namespace ProyectoIdentity.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Acceso(AccesoViewModel accesoViewModel, string returnurl = null)
         {
@@ -141,6 +169,7 @@ namespace ProyectoIdentity.Controllers
         /* METODO DE OLVIDO PASSWORD */
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult OlvidoPassword()
         {
             return View();
@@ -149,6 +178,7 @@ namespace ProyectoIdentity.Controllers
         /* METODO PARA RECUPERACIÓN DE CONTRASEÑA */
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OlvidoPassword(OlvidoPasswordViewModel olvidoPasswordView)
         {
@@ -195,6 +225,7 @@ namespace ProyectoIdentity.Controllers
         /* METODO PARA REESTABLECIMIENTO DE CONTRASEÑA */
 
 		[HttpPost]
+        [AllowAnonymous]
 		[ValidateAntiForgeryToken]
 		public async Task <IActionResult> ResetPassword(RecuperaPasswordViewModel recuperaPasswordView)
 		{
@@ -439,6 +470,7 @@ namespace ProyectoIdentity.Controllers
         /* METODO VERIFICACION DE CODIGO ACCESO */
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> VerificarCodigoAutenticador(bool recordarDatos, string returnurl = null)
         {
 
@@ -487,8 +519,9 @@ namespace ProyectoIdentity.Controllers
             }
 		}
 
-		/* MANEJADOR DE ERRORES */
+        /* MANEJADOR DE ERRORES */
 
+        [AllowAnonymous]
 		private void ValidarErrores(IdentityResult result)
         {
             foreach (var error in result.Errors)
